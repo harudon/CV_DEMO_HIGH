@@ -1,9 +1,13 @@
+import { Recorder } from "./Recorder.js";
+
 /** 録画対象 */
 let _target = "";
 /** 録画残り時間 */
 let _leftTime = 0;
 /** カウントダウンタイマー */
 let _countDownTimer;
+/** レコーダー */
+let _recorder;
 
 /** 録画ステータス */
 let state;
@@ -29,11 +33,15 @@ window.addEventListener("load", () => {
     });
 
     log = document.getElementById("log");
+
+    _recorder = new Recorder(document.getElementById("camera"));
 });
 
 function start(input) {
     if (input === undefined) return;
     if (_target !== "") stop();
+
+    _recorder.start();
 
     _target = input;
     _leftTime = timeInput.value;
@@ -65,6 +73,9 @@ function start(input) {
 }
 
 function stop() {
+    _recorder.stop();
+    _recorder.download(_target);
+
     state.innerText = "録画停止 残り";
 
     time.innerText = 0;
