@@ -15,7 +15,12 @@ export class Recorder {
                 video: { width: 1280, height: 720 },
             };
 
-            this.mediaStream = await navigator.mediaDevices.getUserMedia(mediaDevicesConstraints);
+            this.mediaStream = new MediaStream();
+            const inputStream = await navigator.mediaDevices.getUserMedia(mediaDevicesConstraints);
+            const videos = inputStream.getVideoTracks();
+            for (const v of videos) {
+                this.mediaStream.addTrack(v);
+            }
 
             this.camera.srcObject = this.mediaStream;
             this.camera.play();
