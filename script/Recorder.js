@@ -31,7 +31,13 @@ export class Recorder {
             return;
         }
 
-        this.mediaRecorder = new MediaRecorder(this.mediaStream, { mimeType: 'video/webm; codecs=vp8' });
+        this.mediaRecorder = new MediaRecorder(
+            this.mediaStream,
+            {
+                mimeType: 'video/webm; codecs=vp8',
+                bitsPerSecond: 128000,
+            }
+        );
         this.mediaRecorder.ondataavailable = (event) => {
             this.recordedChunks.push(event.data);
         };
