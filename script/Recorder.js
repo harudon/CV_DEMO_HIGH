@@ -12,7 +12,6 @@ export class Recorder {
         try {
             const mediaDevicesConstraints = {
                 audio: true,
-                video: { width: 1280, height: 720 },
             };
 
             this.mediaStream = new MediaStream();
