@@ -12,7 +12,7 @@ export class Recorder {
         try {
             const mediaDevicesConstraints = {
                 audio: true,
-                video: true,
+                video: { width: 1280, height: 720 },
             };
 
             this.mediaStream = new MediaStream();
@@ -40,7 +40,6 @@ export class Recorder {
             this.mediaStream,
             {
                 mimeType: 'video/webm; codecs=vp8',
-                bitsPerSecond: 128000,
             }
         );
         this.mediaRecorder.ondataavailable = (event) => {
